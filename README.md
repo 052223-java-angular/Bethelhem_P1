@@ -70,3 +70,5 @@ This is a Java-based full stack task-management application. The application wil
 
 - **Scalable**: The design of the application should be scalable, allowing for easy addition of new features or modifications in the future.
 
+##ERD diagram
+--**![image](https://github.com/052223-java-angular/Bethelhem_P1-Back_End/assets/98676637/ac5087a9-2d9e-4502-81b0-fa65e00868e6)
