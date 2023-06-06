@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a Java-based full stack task-management application. The application will be primarily built using Spring boot and Angular frame works and will utilize a PostgreSQL database to store tasks and user information.
+This is a Java-based full stack task-management application.A user can manage,track,create and label tasks using this application. The application will be primarily built using Spring boot and Angular frame works and will utilize a PostgreSQL database to store tasks and user information.
 
 ## User Stories
 
@@ -30,11 +30,12 @@ This is a Java-based full stack task-management application. The application wil
 - delete a task
 - view all tasks
 - search for tasks based on their title or description
+- filter tasks based on their completion status
+- Implementing Task Priority and Urgency level
+
 
 ## Stretch Goals
 
--  filter tasks based on their completion status
-- Implementing Task Priority and Urgency level
 - Task Reminders and Notifications
 - Generate Task Analytics and Reports
 
@@ -71,4 +72,5 @@ This is a Java-based full stack task-management application. The application wil
 - **Scalable**: The design of the application should be scalable, allowing for easy addition of new features or modifications in the future.
 
 ##ERD diagram
---**![image](https://github.com/052223-java-angular/Bethelhem_P1-Back_End/assets/98676637/ac5087a9-2d9e-4502-81b0-fa65e00868e6)
+![image](https://github.com/052223-java-angular/Bethelhem_P1-Back_End/assets/98676637/f5be67cb-6b0b-4af6-befb-38a69cbf0b92)
+
