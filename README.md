@@ -27,6 +27,7 @@ This is a Java-based full stack park events booking web application.A user can e
 - Registration of events:Provide a registration form for users to enter their details and the number of attendees
 - Validate registration information and event availability.  
 - Provide a user dashboard where users can view their booked events and upcoming events.
+- Show upcoming events for each park, including event names and dates.
 - Allow users to cancel or modify their event registrations.
 - Implement a secure payment 
 
@@ -34,7 +35,6 @@ This is a Java-based full stack park events booking web application.A user can e
 
 ## Stretch Goals
 
-- Show upcoming events for each park, including event names and dates.
 - Send notifications to users for booking confirmations, event reminders, and updates.
 
 ## Tech Stacks
