@@ -1,8 +1,12 @@
 package com.revature.park.Controller;
 
+import com.revature.park.Services.JwtTokenService;
 import com.revature.park.Services.UserService;
 import com.revature.park.Utils.custom_exception.ResourceConflictException;
+import com.revature.park.Utils.custom_exception.UserNotFoundException;
+import com.revature.park.dtos.requests.NewLoginRequest;
 import com.revature.park.dtos.requests.NewUserRequest;
+import com.revature.park.dtos.responses.Principal;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,7 @@ import java.util.Map;
 public class AuthController {
 
         private final UserService userService;
+        private final JwtTokenService tokenService;
 
         /**
          * Registers a new user.
@@ -56,8 +61,22 @@ public class AuthController {
             // return 201 - CREATED
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
+    @PostMapping("/login")
+    public ResponseEntity<Principal> login(@RequestBody NewLoginRequest req) {
+        // userservice to call login method
+        Principal principal = userService.login(req);
 
-        /**
+        // create a jwt token
+        String token = tokenService.generateToken(principal);
+
+        principal.setToken(token);
+
+        // return status ok and return principal object
+        return ResponseEntity.status(HttpStatus.OK).body(principal);
+    }
+
+
+    /**
          * Exception handler for ResourceConflictException.
          *
          * @param e the ResourceConflictException to handle
@@ -71,6 +90,13 @@ public class AuthController {
             map.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(map);
         }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleUserNotFoundException(UserNotFoundException e) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("timestamp", new Date(System.currentTimeMillis()));
+        map.put("message", e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    }
         @GetMapping("/hello")
         public String sayHello(){
             return "hello every one";
