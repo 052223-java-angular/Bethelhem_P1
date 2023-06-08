@@ -36,3 +36,4 @@ application.log
 mvnw.cmd
 mvnw
 .mvn
+.gz
