@@ -1,0 +1,50 @@
+package com.revature.park.Services;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.park.Entities.Parks;
+import com.revature.park.Repositories.ParkRepository;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+@Service
+public class ParkService {
+
+    private final ParkRepository parkRepository;
+    private final ExternalAPIService externalAPIService;
+
+    public ParkService(ParkRepository parkRepository, ExternalAPIService externalAPIService) {
+        this.parkRepository = parkRepository;
+        this.externalAPIService = externalAPIService;
+    }
+
+    public void saveParkDataFromAPI() throws IOException {
+        String json = externalAPIService.fetchParkDataFromAPI();
+
+        // JSON parsing and saving to the database
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(json);
+
+        JsonNode dataNode = rootNode.get("data");
+        if (dataNode.isArray()) {
+            for (JsonNode parkNode : dataNode) {
+                String fullName = parkNode.get("fullName").asText();
+                String description = parkNode.get("description").asText();
+                String postalCode = parkNode.get("addresses").get(0).get("postalCode").asText();
+                String city = parkNode.get("addresses").get(0).get("city").asText();
+                String state = parkNode.get("states").asText();
+
+                Parks park = new Parks();
+                park.setName(fullName);
+                park.setDescription(description);
+                park.setPostal_code(postalCode);
+                park.setCity(city);
+                park.setState(state);
+
+                parkRepository.save(park);
+            }
+        }
+    }
+}
+

@@ -15,16 +15,24 @@ import java.util.Set;
 @Table(name="park")
 public class Parks {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name="name",nullable = false)
     private String name;
 
-    @Column(name="description",nullable = false)
+    @Lob
+    @Column(name="description",columnDefinition = "TEXT",nullable = false)
     private String description;
 
-    @Column(name="location",nullable = false)
-    private String location;
+    @Column(name="postal_code",nullable = false)
+    private String postal_code;
+
+    @Column(name="city",nullable = false)
+    private String city;
+
+    @Column(name="state",nullable = false)
+    private String state;
 
     @OneToMany(mappedBy = "parks",fetch = FetchType.LAZY)
     @JsonManagedReference

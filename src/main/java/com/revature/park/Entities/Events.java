@@ -15,12 +15,17 @@ import java.util.Set;
 @Table(name="events")
 public class Events {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name="name",nullable = false)
     private String name;
-    @Column(name="capacity",nullable = false)
+
+    @Column(name="capacity",nullable = true)
     private int capacity;
-    @Column(name="description",nullable = false)
+
+    @Lob
+    @Column(name="description",columnDefinition = "TEXT",nullable = false)
     private String description;
 
     @ManyToOne

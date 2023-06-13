@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Principal {
     private String id;
     private String username;
-    private String role;
+    //private String role;
     private String token;
 
     public Principal(User user) {
