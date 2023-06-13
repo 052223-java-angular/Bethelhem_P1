@@ -4,20 +4,20 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.park.Entities.Parks;
 import com.revature.park.Repositories.ParkRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class ParkService {
 
     private final ParkRepository parkRepository;
     private final ExternalAPIService externalAPIService;
 
-    public ParkService(ParkRepository parkRepository, ExternalAPIService externalAPIService) {
-        this.parkRepository = parkRepository;
-        this.externalAPIService = externalAPIService;
-    }
 
     public void saveParkDataFromAPI() throws IOException {
         String json = externalAPIService.fetchParkDataFromAPI();
@@ -45,6 +45,14 @@ public class ParkService {
                 parkRepository.save(park);
             }
         }
+    }
+    public List<Parks> findAll(){
+        return parkRepository.findAll();
+
+    }
+    public Optional<Parks> finById(Long id){
+        return parkRepository.findById(id);
+
     }
 }
 
